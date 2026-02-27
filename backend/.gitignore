@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+out.txt
+test-gemini.js
+check-rest-api.js
+list-all-models.js
+find-models.js
+find-working-model.js
+ultimate-test.js
