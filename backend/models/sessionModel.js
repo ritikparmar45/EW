@@ -19,6 +19,21 @@ const sessionSchema = new mongoose.Schema({
         default: 'en',
         enum: ['en', 'hi']
     },
+    title: {
+        type: String
+    },
+    summary: {
+        type: String
+    },
+    keyPoints: {
+        type: String
+    },
+    timestamps: {
+        type: String
+    },
+    takeaway: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now,

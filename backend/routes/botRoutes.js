@@ -9,8 +9,14 @@ const setupBot = () => {
 
     console.log('Telegram Bot is running...');
 
+    // Set Bot Commands Menu
+    bot.setMyCommands([
+        { command: 'start', description: 'Start the bot and view setup menu' },
+        { command: 'language', description: 'Change language preference (en/hi)' }
+    ]).catch(err => console.error('Error setting bot commands:', err.message));
+
     // Handle Commands
-    bot.onText(/\/(start|summary|deepdive|actionpoints|language)/, (msg) => {
+    bot.onText(/\/(start|language)/, (msg) => {
         const command = msg.text.split(' ')[0];
         qaController.handleCommand(bot, msg, msg.text);
     });
@@ -26,6 +32,15 @@ const setupBot = () => {
         } else {
             // Otherwise treat as a Q&A question
             await qaController.handleQA(bot, msg);
+        }
+    });
+
+    // Handle Button Clicks (Inline Keyboards)
+    bot.on('callback_query', async (callbackQuery) => {
+        try {
+            await qaController.handleCallbackQuery(bot, callbackQuery);
+        } catch (error) {
+            console.error('Callback Query Error:', error.message);
         }
     });
 
